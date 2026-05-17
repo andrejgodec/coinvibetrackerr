@@ -11,6 +11,8 @@ Execution order matters — each agent depends on the previous.
 | 5 | Frontend: Dashboard | `05-frontend-dashboard.md` | agents 3 + 4 |
 | 6 | Frontend: Coin Detail + Chart | `06-frontend-coin-detail.md` | agent 5 |
 | 7 | Deployment | `07-deployment.md` | agent 6 |
+| 11 | Open-Source Documentation | `11-open-source-docs.md` | agents 1–7 |
+| 13 | GitHub Pages Deployment | `13-github-pages.md` | agents 1–7 |
 
 Agents 3 and 4 can run in parallel after agent 2 completes.
 Agents 5 and 6 are sequential (detail page reuses dashboard components).
@@ -29,3 +31,5 @@ Each file is self-contained: it lists its prerequisites, exact deliverables, and
 - [ ] Agent 5 — Dashboard UI
 - [ ] Agent 6 — Coin Detail UI
 - [ ] Agent 7 — Deploy
+- [ ] Agent 11 — Open-Source Documentation
+- [ ] Agent 13 — GitHub Pages Deployment
