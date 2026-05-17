@@ -19,6 +19,7 @@ export function PriceCell({ value, prevValue, prefix }: PriceCellProps) {
     if (prevValue === null || value === prevValue) return
 
     const direction: FlashState = value > prevValue ? 'up' : 'down'
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFlash(direction)
 
     if (timerRef.current) clearTimeout(timerRef.current)

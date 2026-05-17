@@ -8,12 +8,7 @@ interface MarketSummaryProps {
   coins: Coin[]
 }
 
-interface StatCardProps {
-  label: string
-  value: string
-}
-
-function StatCard({ label, value }: StatCardProps) {
+function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-lg bg-zinc-900 px-4 py-3 flex flex-col gap-1">
       <span className="text-xs uppercase tracking-wider text-zinc-400">{label}</span>
@@ -24,38 +19,36 @@ function StatCard({ label, value }: StatCardProps) {
 
 const COINS_CACHE_KEY = 'cvt_coins_cache'
 
+function loadFromCache(): Coin[] {
+  if (typeof window === 'undefined') return []
+  try {
+    const raw = localStorage.getItem(COINS_CACHE_KEY)
+    if (!raw) return []
+    const { coins } = JSON.parse(raw) as { coins: Coin[]; cachedAt: number }
+    return coins
+  } catch {
+    return []
+  }
+}
+
 export function MarketSummary({ coins: propCoins }: MarketSummaryProps) {
-  const [coins, setCoins] = useState<Coin[]>(propCoins)
+  const [localCoins, setLocalCoins] = useState<Coin[]>(loadFromCache)
 
   useEffect(() => {
-    if (propCoins.length > 0) {
-      setCoins(propCoins)
-      return
-    }
+    if (propCoins.length > 0) return
 
-    // Seed from localStorage if CoinTable has already populated it
-    try {
-      const raw = localStorage.getItem(COINS_CACHE_KEY)
-      if (raw) {
-        const { coins: cached } = JSON.parse(raw) as { coins: Coin[]; cachedAt: number }
-        setCoins(cached)
-      }
-    } catch {
-      // ignore corrupt cache
-    }
-
-    // Listen for updates dispatched by CoinTable
     function onCoinsUpdated(e: Event) {
       const fresh = (e as CustomEvent<Coin[]>).detail
-      if (Array.isArray(fresh)) setCoins(fresh)
+      if (Array.isArray(fresh)) setLocalCoins(fresh)
     }
     window.addEventListener('cvt:coins-updated', onCoinsUpdated)
     return () => window.removeEventListener('cvt:coins-updated', onCoinsUpdated)
-  }, [propCoins])
+  }, [propCoins.length])
+
+  const coins = propCoins.length > 0 ? propCoins : localCoins
 
   const totalMarketCap = coins.reduce((sum, c) => sum + c.marketCap, 0)
   const totalVolume = coins.reduce((sum, c) => sum + c.volume24h, 0)
-
   const bitcoin = coins.find(c => c.id === 'bitcoin')
   const btcDominance =
     bitcoin && totalMarketCap > 0

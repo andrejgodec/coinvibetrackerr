@@ -1,4 +1,3 @@
-import Link from 'next/link'
 
 const DOCS_LINKS = [
   { label: 'GitHub Repository', href: 'https://github.com/andrejgodec/coinvibetrackerr' },
