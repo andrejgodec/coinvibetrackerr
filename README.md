@@ -1,13 +1,17 @@
-# CoinVibeTracker
+# 🪙 CoinVibeTracker
 
 > Real-time cryptocurrency dashboard built with Next.js 16, Supabase, and CoinGecko.
 > Track prices, charts, and market data for thousands of coins — no account required.
+
+### 🚀 [**Try the live demo →**](https://andrejgodec.github.io/coinvibetrackerr/)
+
+No sign-up. No install. Works in your browser right now.
 
 Built as an open-source vibe coding project for crypto enthusiasts. Every feature was implemented using AI agent briefs — see [docs/VIBE_CODING.md](docs/VIBE_CODING.md) to contribute the same way.
 
 ---
 
-## Two Editions
+## ⚡ Two Editions
 
 CoinVibeTracker ships in two editions depending on how you want to run it:
 
@@ -26,7 +30,7 @@ CoinVibeTracker ships in two editions depending on how you want to run it:
 
 ---
 
-## Features
+## ✨ Features
 
 Both editions include:
 
@@ -51,7 +55,7 @@ Full Edition only:
 
 ---
 
-## Quick Start — Full Edition (`main`)
+## 🐳 Quick Start — Full Edition (`main`)
 
 Requires a free [Supabase](https://supabase.com) project for the database cache.
 
@@ -91,7 +95,10 @@ Copy `.env.example` to `.env.local`:
 
 ---
 
-## Quick Start — Lightweight Edition (`pages` branch)
+## 🌐 Quick Start — Lightweight Edition
+
+> **Already live at [andrejgodec.github.io/coinvibetrackerr](https://andrejgodec.github.io/coinvibetrackerr/) 🎉**
+> Fork the repo to get your own copy deployed in ~2 minutes.
 
 No database, no backend, no config. Runs entirely in the browser.
 
@@ -121,7 +128,7 @@ Without a key the app uses the anonymous free tier (30 req/min), which is enough
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 ### Full Edition
 
@@ -149,7 +156,7 @@ Without a key the app uses the anonymous free tier (30 req/min), which is enough
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 coinvibetrackerr/
@@ -197,7 +204,7 @@ coinvibetrackerr/
 
 ---
 
-## Database Schema (Full Edition)
+## 🗄️ Database Schema (Full Edition)
 
 **`coin_cache`** — top-100 list snapshots
 ```sql
@@ -219,7 +226,7 @@ Both tables are written fire-and-forget on every successful API response and rea
 
 ---
 
-## Development
+## 🧑‍💻 Development
 
 ```bash
 npm run dev      # start dev server at :3000
@@ -232,7 +239,7 @@ Tests live in `src/lib/api/__tests__/`.
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Pull requests welcome on both branches.
 
@@ -240,7 +247,7 @@ If you use Claude Code or another AI assistant, read [docs/VIBE_CODING.md](docs/
 
 ---
 
-## Roadmap
+## 🗺️ Roadmap
 
 - [x] CoinGecko API client with rate limiting and TTL cache
 - [x] Dashboard: top 100 coins table with 30 s polling
@@ -259,7 +266,7 @@ If you use Claude Code or another AI assistant, read [docs/VIBE_CODING.md](docs/
 
 ---
 
-## License
+## 📄 License
 
 MIT — see [LICENSE](LICENSE).
 
