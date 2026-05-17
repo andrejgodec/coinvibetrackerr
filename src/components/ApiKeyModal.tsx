@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Dialog } from '@base-ui/react/dialog'
 import { Button } from '@/components/ui/button'
+import { setApiKeyAction } from '@/app/actions'
 
 interface ApiKeyModalProps {
   open: boolean
@@ -14,14 +15,10 @@ export function ApiKeyModal({ open, onClose }: ApiKeyModalProps) {
   const [status, setStatus] = useState<'idle' | 'saved' | 'cleared'>('idle')
   const [error, setError] = useState<string | null>(null)
 
-  function handleSave() {
+  async function handleSave() {
     setError(null)
     try {
-      if (key) {
-        localStorage.setItem('cgk', key)
-      } else {
-        localStorage.removeItem('cgk')
-      }
+      await setApiKeyAction(key)
       setStatus('saved')
       onClose()
     } catch (err) {
@@ -29,10 +26,10 @@ export function ApiKeyModal({ open, onClose }: ApiKeyModalProps) {
     }
   }
 
-  function handleClear() {
+  async function handleClear() {
     setError(null)
     try {
-      localStorage.removeItem('cgk')
+      await setApiKeyAction('')
       setKey('')
       setStatus('cleared')
     } catch (err) {

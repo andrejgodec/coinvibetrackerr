@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import type { OHLCVPoint } from '@/types/coin'
 import { CoinChart } from '@/components/CoinChart'
-import { clientGetCoinHistory } from '@/lib/api/coingecko-client'
+import { fetchCoinHistoryAction } from '@/app/actions'
 
 const RANGES = [
   { label: '1D', value: 1 },
@@ -28,7 +28,7 @@ export function ChartSection({
     if (newRange === range) return
     setLoading(true)
     try {
-      const result = await clientGetCoinHistory(coinId, newRange)
+      const result = await fetchCoinHistoryAction(coinId, newRange)
       setData(result)
       setRange(newRange)
     } finally {

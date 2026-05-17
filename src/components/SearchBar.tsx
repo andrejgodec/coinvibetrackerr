@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, useCallback, KeyboardEvent } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { clientSearchCoins } from '@/lib/api/coingecko-client'
+import { searchCoinsAction } from '@/app/actions'
 import type { CoinSearchResult } from '@/types/coin'
 
 export function SearchBar() {
@@ -26,7 +26,7 @@ export function SearchBar() {
     }
     setLoading(true)
     try {
-      const data = await clientSearchCoins(q)
+      const data = await searchCoinsAction(q)
       setResults(data)
       setOpen(true)
       setActiveIndex(-1)

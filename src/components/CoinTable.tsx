@@ -6,7 +6,7 @@ import { useVirtualizer } from '@tanstack/react-virtual'
 import type { Coin } from '@/types/coin'
 import { PriceCell } from '@/components/PriceCell'
 import { formatLargeNumber } from '@/lib/format'
-import { clientGetTopCoins } from '@/lib/api/coingecko-client'
+import { fetchTopCoinsAction } from '@/app/actions'
 
 interface CoinTableProps {
   initialCoins: Coin[]
@@ -104,12 +104,11 @@ export function CoinTable({ initialCoins }: CoinTableProps) {
       // corrupt cache — ignore
     }
 
-    clientGetTopCoins()
+    fetchTopCoinsAction()
       .then(fresh => {
         setCoins(fresh)
         setIsStale(false)
         localStorage.setItem(COINS_CACHE_KEY, JSON.stringify({ coins: fresh, cachedAt: Date.now() }))
-        window.dispatchEvent(new CustomEvent('cvt:coins-updated', { detail: fresh }))
       })
       .catch(() => {})
   }, [])
@@ -117,7 +116,7 @@ export function CoinTable({ initialCoins }: CoinTableProps) {
   // polling
   const fetchAndUpdate = useCallback(async () => {
     try {
-      const fresh = await clientGetTopCoins()
+      const fresh = await fetchTopCoinsAction()
       setCoins(prev => {
         // snapshot current prices before overwriting
         const map = new Map<string, number>()
@@ -127,7 +126,6 @@ export function CoinTable({ initialCoins }: CoinTableProps) {
       })
       setIsStale(false)
       localStorage.setItem(COINS_CACHE_KEY, JSON.stringify({ coins: fresh, cachedAt: Date.now() }))
-      window.dispatchEvent(new CustomEvent('cvt:coins-updated', { detail: fresh }))
     } catch {
       // network error — keep stale data
     }
